@@ -2,6 +2,7 @@ package com.epam.training.sportsbetting.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class OutcomeOdd {
     private BigDecimal value;
@@ -42,6 +43,10 @@ public class OutcomeOdd {
     public LocalDateTime getValidUntil() {
         return validUntil;
     }
+    
+    public String getStringValidUntil() {
+        return validUntil.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
 
 
     public void setValidUnit(LocalDateTime validUnit) {
@@ -65,6 +70,22 @@ public class OutcomeOdd {
     
     public String getSportEventTitle() {
         return outcome.getSportEventTitle();
+    }
+
+
+    public String getBetDescription() {
+        return outcome.getBetDescription();
+    }
+
+
+    public SportEvent getSportEvent() {
+        return outcome.getSportEvent();
+    }
+
+
+    public String getStringValidForm() {
+        return validForm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
     }
     
 }

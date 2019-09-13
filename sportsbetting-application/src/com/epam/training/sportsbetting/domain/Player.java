@@ -10,6 +10,8 @@ public class Player extends User {
     private BigDecimal balance;
     private LocalDate birth;
     private Currency currency;
+    private String participan1;
+    private String participant2;
     
     
     public Player(String name, int accountNumber, BigDecimal balance, LocalDate birth, Currency currency) {
@@ -51,6 +53,32 @@ public class Player extends User {
     }
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+
+    public String getParticipan1() {
+        return participan1;
+    }
+
+
+    public void setParticipan1(String participan1) {
+        this.participan1 = participan1;
+    }
+
+
+    public String getParticipant2() {
+        return participant2;
+    }
+
+
+    public void setParticipant2(String participant2) {
+        this.participant2 = participant2;
+    }
+
+
+    public void increasePlayerBalanace(BigDecimal val) {
+        balance = balance.add(val);
+        
     }
     
     

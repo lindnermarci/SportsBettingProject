@@ -1,5 +1,6 @@
 package com.epam.training.sportsbetting.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Outcome {
@@ -12,6 +13,13 @@ public class Outcome {
         this.description = description;
         this.bet = bet;
         this.outcomeOdds = outcomeOdds;
+    }
+    
+    public Outcome(String description, Bet bet) {
+        super();
+        this.description = description;
+        this.bet = bet;
+        this.outcomeOdds = new ArrayList<OutcomeOdd>();
     }
     
     
@@ -33,6 +41,20 @@ public class Outcome {
     
     public String getSportEventTitle() {
         return bet.getSportEventTitle();
+    }
+
+
+    public void addOutcomeOdd(OutcomeOdd outcomeOdd) {
+        outcomeOdds.add(outcomeOdd);
+        
+    }
+
+    public String getBetDescription() {
+        return bet.getDescription();
+    }
+
+    public SportEvent getSportEvent() {
+        return bet.getSportevent();
     }
     
     

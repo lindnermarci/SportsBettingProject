@@ -82,5 +82,32 @@ public class Wager {
     public String getSportEventTitle() {
         return outcomeOdd.getSportEventTitle();
     }
+
+    public String getOutcomeDescription() {
+        // TODO Auto-generated method stub
+        return outcomeOdd.getOutcomeDescription();
+    }
+
+    public String getBetDescription() {
+        return outcomeOdd.getBetDescription();
+    }
+
+    public BigDecimal getOutcomeOdd() {
+        return outcomeOdd.getValue();
+    }
+
+    public Outcome getOutcome() {
+        return outcomeOdd.getOutcome();
+        
+    }
+
+    public SportEvent getSportEvent() {
+        return outcomeOdd.getSportEvent();
+    }
+
+    public void increasePlayerBalanace(BigDecimal val) {
+        player.increasePlayerBalanace(val);
+        
+    }
     
 }

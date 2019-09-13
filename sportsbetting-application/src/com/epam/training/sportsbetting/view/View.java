@@ -2,6 +2,7 @@ package com.epam.training.sportsbetting.view;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import com.epam.training.sportsbetting.domain.OutcomeOdd;
 import com.epam.training.sportsbetting.domain.Player;
@@ -13,7 +14,7 @@ public interface View {
     void PrintWelcomeMessage(Player player);
     void PrintBalanace(Player player);
     void PrintOutcomeOdds(List<SportEvent> sportEvents);
-    OutcomeOdd selectOutcomeOdd(List<SportEvent> sportEvents);
+    Optional<OutcomeOdd> selectOutcomeOdd(List<SportEvent> sportEvents);
     BigDecimal readWagerAmount();
     void printWagerSaved(Wager wager);
     void printNotEnoughBalance(Player player);
