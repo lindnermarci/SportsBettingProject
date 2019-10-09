@@ -1,33 +1,30 @@
 package com.epam.training.sportsbetting;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Optional;
-import java.util.Scanner;
 
-import com.epam.training.sportsbetting.domain.Currency;
 import com.epam.training.sportsbetting.domain.OutcomeOdd;
 import com.epam.training.sportsbetting.domain.Player;
 import com.epam.training.sportsbetting.domain.Wager;
-import com.epam.training.sportsbetting.service.SportsBetting;
-import com.epam.training.sportsbetting.service.SportsBettingSevice;
+import com.epam.training.sportsbetting.service.SportsBettingService;
+import com.epam.training.sportsbetting.service.Sevice;
 import com.epam.training.sportsbetting.view.SportsBettingView;
 import com.epam.training.sportsbetting.view.View;
 
 public class App {
     
-    private static SportsBettingSevice service;
+    private static Sevice service;
     private static View view;
     
     public static void main(String[] args) {
-        App app = new App(new SportsBetting(), new SportsBettingView());
+        new App(new SportsBettingService(), new SportsBettingView());
         createPLayer();
         play();
         calculateResult();
         printResult();
     }
     
-    public App(SportsBettingSevice sportsBettingSevice, View view) {
+    public App(Sevice sportsBettingSevice, View view) {
         App.service = sportsBettingSevice;
         App.view = view;
     }
@@ -54,6 +51,7 @@ public class App {
                     wagerAmount = view.readWagerAmount();
                 }while(!service.sufficientBalance(wagerAmount));
                 wager = new Wager(wagerAmount, outcomeOdd.get(), player);
+                service.saveWager(wager);
             }
             view.printWagerSaved(wager);
         }

@@ -20,6 +20,11 @@ public class OutcomeOdd {
     }
 
 
+    public OutcomeOdd(BigDecimal valueOf, LocalDateTime parse, LocalDateTime parse2) {
+        this(valueOf, parse, parse2, null);
+    }
+
+
     public BigDecimal getValue() {
         return value;
     }

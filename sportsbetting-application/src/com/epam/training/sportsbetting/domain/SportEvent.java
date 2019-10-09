@@ -2,7 +2,6 @@ package com.epam.training.sportsbetting.domain;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 
 public class SportEvent implements FootballSportEvent, TenisSportEvent {
@@ -22,16 +21,11 @@ public class SportEvent implements FootballSportEvent, TenisSportEvent {
         this.startDate = startDate;
         this.endDate = endDate;
         this.bets = bets;
-        this.result = result;
+        this.result = new Result();
         this.player1 = player1;
         this.player2 = player2;
     }
     
-
-    public SportEvent(String title, LocalDateTime startDate, LocalDateTime endDate, Bet bet, String player1, String player2) {
-        this(title, startDate, endDate, Collections.emptyList(), new Result(), player1, player2);    
-        }
-
     public String getTitle() {
         return title;
     }

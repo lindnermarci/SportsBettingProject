@@ -7,7 +7,7 @@ import com.epam.training.sportsbetting.domain.Player;
 import com.epam.training.sportsbetting.domain.SportEvent;
 import com.epam.training.sportsbetting.domain.Wager;
 
-public interface SportsBettingSevice {
+public interface Sevice {
     void savePlayer(Player player);
     Player findPlayer();
     List<SportEvent> findAllSportEvents();

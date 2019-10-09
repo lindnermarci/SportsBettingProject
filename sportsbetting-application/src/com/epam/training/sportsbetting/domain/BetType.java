@@ -5,7 +5,4 @@ public enum BetType {
     GOALS,
     PLAYERS_SCORE,
     NUMBER_OF_SETS;
-    
-    BetType() {
-    }
 }
