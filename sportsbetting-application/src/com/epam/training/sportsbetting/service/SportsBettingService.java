@@ -19,55 +19,18 @@ public class SportsBettingService implements Sevice {
     private List<Wager> wagers;
 
     public SportsBettingService() {
-        List<Bet> bets = new ArrayList<Bet>();
-        
-        SportEventBuilder sef = new SportEventBuilder();
-        SportEvent event = sef.setTitle("Lakers vs. Celtics").setStartDate(LocalDateTime.parse("2020-02-07T12:00:00")).setResult(null).setEndDate(LocalDateTime.parse("2020-02-07T13:00:00")).setPlayer1("Arsenal").setPlayer2("Chelsea").getInstance();
-        
-        
-        
-        BetBuilder betBuilder = new BetBuilder();
-        
-        final LocalDateTime validFrom = LocalDateTime.parse("2000-01-01T12:00:00");
-        final LocalDateTime validUntil = LocalDateTime.parse("2020-02-07T12:00:00");
-        OutcomeOddBuilder outcomeOddBuilder = new OutcomeOddBuilder();
-        outcomeOddBuilder.setValue(BigDecimal.valueOf(4)).setValidForm(validFrom).setValidUntil(validUntil);
+        SportEventBuilder seb = new SportEventBuilder();
+        SportEvent event = seb
+                .setTitle("Lakers vs. Celtics")
+                .setStartDate(LocalDateTime.parse("2020-02-07T12:00:00"))
+                .setResult(null)
+                .setEndDate(LocalDateTime.parse("2020-02-07T13:00:00"))
+                .setPlayer1("Arsenal")
+                .setPlayer2("Chelsea")
+                .setBets()
+                .getInstance();
         
         
-        bets.add(betBuilder.setDescription("player Lebron James score")
-                .setSportevent(event)
-                .setType(BetType.PLAYERS_SCORE)
-                .addOutcome(new Outcome("28", betBuilder.GetInstance()))
-                .setOutcomeOdd(outcomeOddBuilder.getInstance(),0)
-                .GetInstance());
-        
-        
-        betBuilder = new BetBuilder();
-        bets.add(betBuilder.setDescription("number of scored goals")
-                .setSportevent(event)
-                .setType(BetType.GOALS)
-                .addOutcome(new Outcome("129", betBuilder.GetInstance()))
-                .setOutcomeOdd(outcomeOddBuilder.setValue(BigDecimal.valueOf(3)).getInstance(),0)
-                .GetInstance());
-        
-        betBuilder = new BetBuilder();
-        bets.add(betBuilder.setDescription("winner")
-                .setSportevent(event)
-                .setType(BetType.WINNER)
-                .addOutcome(new Outcome("Lakers", betBuilder.GetInstance()))
-                .setOutcomeOdd(outcomeOddBuilder.setValue(BigDecimal.valueOf(2)).getInstance(),0)
-                .GetInstance());
-        
-        betBuilder = new BetBuilder();
-        bets.add(betBuilder.setDescription("winner")
-                .setSportevent(event)
-                .setType(BetType.WINNER)
-                .addOutcome(new Outcome("Celtics", betBuilder.GetInstance()))
-                .setOutcomeOdd(outcomeOddBuilder.setValue(BigDecimal.valueOf(2)).getInstance(),0)
-                .GetInstance());
-                
-        
-        event.setBets(bets);
         sportEvents = new ArrayList<SportEvent>();
         sportEvents.add(event);
         wagers = new ArrayList<Wager>();
