@@ -24,16 +24,30 @@ public class SportsBettingView implements View {
     public Player readPlayerData() {
         // Scanner scanner = new Scanner(System.in);
         System.out.println("> What is your name?");
-        String name = scanner.nextLine();
+        String name = "";
+        name = scanner.nextLine();            
+        while(name.isEmpty()) {
+            System.out.println("You should input a name!");
+            name = scanner.nextLine();            
+        }
         System.out.println("> How much money do you have (more than 0)?");
+        BigDecimal money = new BigDecimal(0);
         String amount = scanner.nextLine();
-        BigDecimal money = BigDecimal.valueOf(Double.parseDouble(amount));
+        money = BigDecimal.valueOf(Double.parseDouble(amount));            
+        while(isNotPositive(money)) {
+            System.out.println("Invalid input!");
+            amount = scanner.nextLine();
+            money = BigDecimal.valueOf(Double.parseDouble(amount));            
+        }
         System.out.println("> What is your currency? (HUF, EUR or USD)");
         String stringCurrency = scanner.nextLine();
 
         Currency currency = stringCurrency.contentEquals("HUF") ? Currency.HUF : (stringCurrency.contentEquals("EUR") ? Currency.EUR : Currency.USD);
-        // scanner.close();
         return new Player(name, 1, money, LocalDate.now(), currency);
+    }
+
+    private boolean isNotPositive(BigDecimal money) {
+        return money.compareTo(new BigDecimal(1)) == -1;
     }
 
     @Override
@@ -49,9 +63,9 @@ public class SportsBettingView implements View {
     }
 
     private String formatCurrency(int value, Currency currency) {
-        String pattern = "###,###.###";
+        final String CURRENCY_FORMAT_PATTERN = "###,###.###";
 
-        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        DecimalFormat decimalFormat = new DecimalFormat(CURRENCY_FORMAT_PATTERN);
 
         return decimalFormat.format(value) + " " + currency.toString();
     }
@@ -95,42 +109,40 @@ public class SportsBettingView implements View {
 
     @Override
     public Optional<OutcomeOdd> selectOutcomeOdd(List<SportEvent> sportEvents) {
-        // Scanner scanner = new Scanner(System.in);
-        /*
-         * if(!scanner.hasNextLine()) { System.out.println("no next line"); scanner.close(); return null; }
-         */
         String selected = scanner.nextLine();
-        if (selected.contentEquals("q")) {
-            scanner.close();
-            return Optional.empty();
+        while(!(selected.matches("\\d") || selected.contentEquals("q"))) {
+            selected = scanner.nextLine();            
         }
-        int selectedIndex = Integer.parseInt(selected);
-        // scanner.close();
-        int i = 1;
-        for (SportEvent event : sportEvents) {
-            for (Bet bet : event.getBets()) {
-                for (Outcome outcome : bet.getOutcomes()) {
-                    for (OutcomeOdd outcomeOdd : outcome.getOutcomeOdds()) {
-                        if (i == selectedIndex) {
-                            return Optional.of(outcomeOdd);
+            if (selected.contentEquals("q")) {
+                scanner.close();
+                return Optional.empty();
+            }
+            int selectedIndex = Integer.parseInt(selected);
+            int i = 1;
+            for (SportEvent event : sportEvents) {
+                for (Bet bet : event.getBets()) {
+                    for (Outcome outcome : bet.getOutcomes()) {
+                        for (OutcomeOdd outcomeOdd : outcome.getOutcomeOdds()) {
+                            if (i == selectedIndex) {
+                                return Optional.of(outcomeOdd);
+                            }
+                            i++;
                         }
-                        i++;
                     }
                 }
             }
-        }
         return null;
-
     }
 
     @Override
     public BigDecimal readWagerAmount() {
         System.out.println("> What amount do you wish to bet on it?");
-        // Scanner scanner = new Scanner(System.in);
         String next = scanner.nextLine();
-        // System.out.println(next);
         BigDecimal wager = BigDecimal.valueOf(Double.parseDouble(next));
-        // scanner.close();
+        while(isNotPositive(wager)) {
+            System.out.println("Invalid input");
+            wager = BigDecimal.valueOf(Double.parseDouble(next));
+        }
         return wager;
     }
 

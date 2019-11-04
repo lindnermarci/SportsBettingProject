@@ -4,15 +4,15 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-import com.epam.training.sportsbetting.domain.Bet;
-import com.epam.training.sportsbetting.domain.BetType;
 import com.epam.training.sportsbetting.domain.Outcome;
 import com.epam.training.sportsbetting.domain.Player;
 import com.epam.training.sportsbetting.domain.SportEvent;
 import com.epam.training.sportsbetting.domain.Wager;
+import com.epam.training.sportsbetting.domain.SportEventBuilder;
 
-public class SportsBettingService implements Sevice {
+public class SportsBettingService implements Service {
 
     private Player player;
     private List<SportEvent> sportEvents;
@@ -70,15 +70,14 @@ public class SportsBettingService implements Sevice {
 
     @Override
     public void calculateResult() {
-        int counter = 0;
+        Random r = new Random();
             for(Wager wager: wagers) {
-                if(counter % 2 == 0) {
+                if(r.nextBoolean()) {
                     Outcome outcome = wager.getOutcome();
                     SportEvent sportEvent = wager.getSportEvent();
                     sportEvent.addWinnerOutcome(outcome);
                     wager.setWin(true);
                     wager.increasePlayerBalanace(wager.getAmount().multiply(wager.getOutcomeOdd()));
-                    counter++;
                 }
                 wager.setProcessed(true);
             }

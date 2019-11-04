@@ -1,4 +1,4 @@
-package com.epam.training.sportsbetting.service;
+package com.epam.training.sportsbetting.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -36,39 +36,45 @@ public class SportEventBuilder {
         outcomeOddBuilder.setValue(BigDecimal.valueOf(4)).setValidForm(validFrom).setValidUntil(validUntil);
         
         
-        bets.add(betBuilder.setDescription("player Lebron James score")
+        Bet bet = betBuilder.setDescription("player Lebron James score")
                 .setSportevent(this.getInstance())
                 .setType(BetType.PLAYERS_SCORE)
-                .addOutcome(new Outcome("28", betBuilder.GetInstance()))
                 .setOutcomeOdd(outcomeOddBuilder.getInstance(),0)
-                .GetInstance());
+                .getInstance();
+        bets.add(bet);
+        bets.get(0).outcomes.add(new Outcome("28", bets.get(0)));
         
         
         betBuilder = new BetBuilder();
-        bets.add(betBuilder.setDescription("number of scored goals")
+        bet = betBuilder.setDescription("number of scored goals")
                 .setSportevent(this.getInstance())
                 .setType(BetType.GOALS)
-                .addOutcome(new Outcome("129", betBuilder.GetInstance()))
                 .setOutcomeOdd(outcomeOddBuilder.setValue(BigDecimal.valueOf(3)).getInstance(),0)
-                .GetInstance());
+                .getInstance();
+        bets.add(bet);
+        bets.get(1).outcomes.add(new Outcome("28", bets.get(1)));
         
         betBuilder = new BetBuilder();
-        bets.add(betBuilder.setDescription("winner")
+        bet = betBuilder.setDescription("winner")
                 .setSportevent(this.getInstance())
                 .setType(BetType.WINNER)
-                .addOutcome(new Outcome("Lakers", betBuilder.GetInstance()))
+                .addOutcome(new Outcome("Lakers", betBuilder.getInstance()))
                 .setOutcomeOdd(outcomeOddBuilder.setValue(BigDecimal.valueOf(2)).getInstance(),0)
-                .GetInstance());
+                .getInstance();
+        bets.add(bet);
+        bets.get(2).outcomes.add(new Outcome("Lakers", bets.get(2)));
         
         betBuilder = new BetBuilder();
-        bets.add(betBuilder.setDescription("winner")
+        bet = betBuilder.setDescription("winner")
                 .setSportevent(this.getInstance())
                 .setType(BetType.WINNER)
-                .addOutcome(new Outcome("Celtics", betBuilder.GetInstance()))
                 .setOutcomeOdd(outcomeOddBuilder.setValue(BigDecimal.valueOf(2)).getInstance(),0)
-                .GetInstance());
+                .getInstance();
+        bets.add(bet);
+        bets.get(3).outcomes.add(new Outcome("Celtics", bets.get(3)));
         return this;
     }
+    
     public SportEventBuilder setTitle(String title) {
         SportEventBuilder.title = title;
         return this;

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class SportEvent implements FootballSportEvent, TenisSportEvent {
+public class SportEvent{
 
     private String title;
     private LocalDateTime startDate;

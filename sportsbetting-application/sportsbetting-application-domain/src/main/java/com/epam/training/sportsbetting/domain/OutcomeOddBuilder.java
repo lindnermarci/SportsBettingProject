@@ -1,4 +1,4 @@
-package com.epam.training.sportsbetting.service;
+package com.epam.training.sportsbetting.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

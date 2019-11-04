@@ -7,14 +7,14 @@
     <artifactId>sportsbetting-application-maven</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.example</groupId>
+  <groupId>com.example.app</groupId>
   <artifactId>sportsbetting-application-domain</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <name>sportsbetting-application-domain</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  	<maven.compiler.source>10</maven.compiler.source>
+  	<maven.compiler.source>12</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
   </properties>
   <dependencies>

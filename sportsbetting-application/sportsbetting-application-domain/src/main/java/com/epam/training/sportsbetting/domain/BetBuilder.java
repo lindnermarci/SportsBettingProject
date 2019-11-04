@@ -1,9 +1,8 @@
-package com.epam.training.sportsbetting.service;
+package com.epam.training.sportsbetting.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.epam.training.sportsbetting.domain.Bet;
 import com.epam.training.sportsbetting.domain.BetType;
 import com.epam.training.sportsbetting.domain.Outcome;
 import com.epam.training.sportsbetting.domain.OutcomeOdd;
@@ -14,7 +13,6 @@ public class BetBuilder {
     private SportEvent sportEvent;
     private BetType type;
     List<Outcome> outcomes;
-    private Bet bet;
     
     public BetBuilder() {
         this.outcomes = new ArrayList<Outcome>();
@@ -52,11 +50,8 @@ public class BetBuilder {
         outcome.addOutcomeOdd(outcomeOdd);
         return this;
     }
-
     
-    public Bet GetInstance() {
-        if(bet != null) {return bet; }
-        bet = new Bet(description, sportEvent, type, outcomes);
-        return bet;
+    public Bet getInstance() {
+        return new Bet(description, sportEvent, type, outcomes);
     }
 }
