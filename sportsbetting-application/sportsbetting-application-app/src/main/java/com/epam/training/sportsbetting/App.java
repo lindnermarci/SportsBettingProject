@@ -1,17 +1,22 @@
 package com.epam.training.sportsbetting;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.epam.training.sportsbetting.domain.OutcomeOdd;
 import com.epam.training.sportsbetting.domain.Player;
 import com.epam.training.sportsbetting.domain.Wager;
+import com.epam.training.sportsbetting.repository.PlayerRepository;
 import com.epam.training.sportsbetting.service.Service;
-import com.epam.training.sportsbetting.service.SportsBettingService;
-import com.epam.training.sportsbetting.view.SportsBettingView;
 import com.epam.training.sportsbetting.view.View;
 
 public class App {
@@ -20,7 +25,9 @@ public class App {
     private static View view;
     
     public static void main(String[] args) {
-       try(ConfigurableApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class)) {
+       try(ConfigurableApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class, JpaConfig.class)) {
+           //testJpa(ctx);
+           //testSpringData(ctx);
            App app = ctx.getBean(App.class);
            app.createPLayer();
            app.play();
@@ -31,6 +38,28 @@ public class App {
        }
     }
     
+    private static void testSpringData(ApplicationContext context) {
+        PlayerRepository pr = context.getBean(PlayerRepository.class);
+        System.out.println("The id of player is: " + pr.findByName("Marci").get(0).getId());
+    }
+    
+    private static void testJpa(ApplicationContext context) {
+
+        EntityManagerFactory emf = context.getBean(EntityManagerFactory.class);
+        EntityManager em = emf.createEntityManager();
+    
+        EntityTransaction tr = em.getTransaction();
+        tr.begin();
+        Player player = new Player();
+        player.setBirth(LocalDate.now());
+        player.setBalance(new BigDecimal(10));
+        player.setName("Marci");
+        player.setParticipan1("prt 1");
+        player.setParticipan1("prt 2");
+        em.merge(player);
+        tr.commit();
+        System.out.println("Payer id is " + player.getId() );
+    }
     public App(Service sportsBettingSevice, View view) {
         App.service = sportsBettingSevice;
         App.view = view;

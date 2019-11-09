@@ -4,12 +4,29 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class SportEvent{
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+@Entity
+//@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+//@DiscriminatorColumn(name="SE_TYPE")
+public class SportEvent{
+    @Id
+    @GeneratedValue
+    private int id;
     private String title;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    @OneToMany(targetEntity=Bet.class, cascade=CascadeType.ALL)
     private List<Bet> bets;
+    @OneToOne(targetEntity = Result.class, cascade=CascadeType.ALL)
     private Result result;
     private String player1;
     private String player2;
@@ -104,6 +121,14 @@ public class SportEvent{
 
     public String getStringStartDate() {
         return startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

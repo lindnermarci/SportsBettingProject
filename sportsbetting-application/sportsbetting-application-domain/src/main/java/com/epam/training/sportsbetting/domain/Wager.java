@@ -3,13 +3,28 @@ package com.epam.training.sportsbetting.domain;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Wager {
+    @Id
+    @GeneratedValue
+    private int id;
     private BigDecimal amount;
     private LocalDateTime timestampCreated;
     private boolean processed;
     private boolean win;
+    @OneToOne(cascade=CascadeType.ALL)
     private OutcomeOdd outcomeOdd;
+    @OneToOne
     private Player player;
+    @Enumerated(EnumType.STRING)
     private Currency currency;
     
     public Wager(BigDecimal amount, OutcomeOdd odd, Player player) {

@@ -3,6 +3,9 @@ package com.epam.training.sportsbetting.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Entity;
+
+@Entity
 public class TenisSportEvent extends SportEvent {
 
     public TenisSportEvent(String title, LocalDateTime startDate, LocalDateTime endDate, List<Bet> bets, Result result, String player1, String player2) {

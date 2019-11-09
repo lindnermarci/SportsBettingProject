@@ -3,16 +3,31 @@ package com.epam.training.sportsbetting.domain;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Player extends User {
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Version;
 
+@Entity
+public class Player extends User {
+    
+    @Id
+    @GeneratedValue
+    private int id;
     private String name;
     private int accountNumber;
     private BigDecimal balance;
     private LocalDate birth;
+    @Enumerated(EnumType.STRING)
     private Currency currency;
     private String participan1;
     private String participant2;
     
+    public Player() {
+        
+    }
     
     public Player(String name, int accountNumber, BigDecimal balance, LocalDate birth, Currency currency) {
         super();
@@ -79,6 +94,15 @@ public class Player extends User {
     public void increasePlayerBalanace(BigDecimal val) {
         balance = balance.add(val);
         
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

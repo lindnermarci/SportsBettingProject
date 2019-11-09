@@ -3,12 +3,32 @@ package com.epam.training.sportsbetting.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Bet {
+
+    @Id
+    @GeneratedValue
+    private int id;
     private String description;
+    @OneToOne(targetEntity = SportEvent.class, cascade=CascadeType.ALL)
     private SportEvent sportEvent;
     private BetType type;
+    @OneToMany(targetEntity = Outcome.class, cascade=CascadeType.ALL)
     List<Outcome> outcomes;
     
+
+    public Bet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
     public Bet(String description, SportEvent sportevent, BetType type, List<Outcome> outcomes) {
         super();
         this.description = description;
@@ -58,6 +78,14 @@ public class Bet {
             return;
         }
         outcomes.get(indexOfOutcome).addOutcomeOdd(outcomeOdd);
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     

@@ -4,10 +4,21 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class OutcomeOdd {
+    @Id
+    @GeneratedValue
+    private int id;
     private BigDecimal value;
     private LocalDateTime validForm;
     private LocalDateTime validUntil;
+    @OneToOne(targetEntity = Outcome.class,cascade=CascadeType.ALL)
     private Outcome outcome;
     
     
@@ -91,6 +102,16 @@ public class OutcomeOdd {
     public String getStringValidForm() {
         return validForm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+
+    public void setId(int id) {
+        this.id = id;
     }
     
 }

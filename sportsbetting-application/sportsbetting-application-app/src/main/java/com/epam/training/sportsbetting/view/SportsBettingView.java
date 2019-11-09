@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.epam.training.sportsbetting.domain.Bet;
 import com.epam.training.sportsbetting.domain.Currency;
 import com.epam.training.sportsbetting.domain.Outcome;
@@ -18,31 +21,50 @@ import com.epam.training.sportsbetting.domain.Wager;
 public class SportsBettingView implements View {
 
     private Scanner scanner = new Scanner(System.in);
-    static boolean correctGrammar = false;
+    private static final Logger LOG = LoggerFactory.getLogger(SportsBettingView.class);
 
     @Override
     public Player readPlayerData() {
-        // Scanner scanner = new Scanner(System.in);
         System.out.println("> What is your name?");
         String name = "";
         name = scanner.nextLine();            
         while(name.isEmpty()) {
-            System.out.println("You should input a name!");
+           LOG.error("You have entered an empty string!");
             name = scanner.nextLine();            
         }
         System.out.println("> How much money do you have (more than 0)?");
-        BigDecimal money = new BigDecimal(0);
+        BigDecimal money = null;
         String amount = scanner.nextLine();
-        money = BigDecimal.valueOf(Double.parseDouble(amount));            
-        while(isNotPositive(money)) {
-            System.out.println("Invalid input!");
+        while(amount.isEmpty() || amount.matches("[\\D]+")) {
+            LOG.error("Invalid Input!");
+            amount = scanner.nextLine();
+        }
+        money = BigDecimal.valueOf(Double.parseDouble(amount));    
+        
+        while(money == null || isNotPositive(money)) {
+            LOG.error("Invalid input!");
             amount = scanner.nextLine();
             money = BigDecimal.valueOf(Double.parseDouble(amount));            
         }
         System.out.println("> What is your currency? (HUF, EUR or USD)");
         String stringCurrency = scanner.nextLine();
 
-        Currency currency = stringCurrency.contentEquals("HUF") ? Currency.HUF : (stringCurrency.contentEquals("EUR") ? Currency.EUR : Currency.USD);
+        Currency currency;
+        switch(stringCurrency) 
+        { 
+            case "HUF": 
+                currency = Currency.HUF;
+                break; 
+            case "EUR": 
+                currency = Currency.HUF;
+                break; 
+            case "USD": 
+                currency = Currency.USD; 
+                break; 
+            default:
+                LOG.info("Could not parse input. Currency set to default value(USD).");
+                currency = Currency.USD;
+        } 
         return new Player(name, 1, money, LocalDate.now(), currency);
     }
 
@@ -72,8 +94,7 @@ public class SportsBettingView implements View {
 
     @Override
     public void PrintOutcomeOdds(List<SportEvent> sportEvents) {
-        System.out.println("> What " + (correctGrammar ? "do" : "are") + " you want to bet on? (choose a number or press q for quit)");
-        correctGrammar = true;
+        System.out.println("> What do you want to bet on? (choose a number or press q for quit)");
         StringBuilder sb = new StringBuilder();
         int i = 1;
         for (SportEvent event : sportEvents) {
@@ -111,6 +132,7 @@ public class SportsBettingView implements View {
     public Optional<OutcomeOdd> selectOutcomeOdd(List<SportEvent> sportEvents) {
         String selected = scanner.nextLine();
         while(!(selected.matches("\\d") || selected.contentEquals("q"))) {
+            LOG.error("Invalid input!");
             selected = scanner.nextLine();            
         }
             if (selected.contentEquals("q")) {
@@ -131,6 +153,8 @@ public class SportsBettingView implements View {
                     }
                 }
             }
+        LOG.error("You have chosen a bet that does not exists, please give a valid number.");
+        selectOutcomeOdd(sportEvents);
         return null;
     }
 
@@ -166,7 +190,7 @@ public class SportsBettingView implements View {
 
     @Override
     public void printNotEnoughBalance(Player player) {
-        System.out.printf("> You don't have enough money, your balance is %s", formatCurrency(player.getBalance().intValue(), player.getCurrency()));
+        LOG.info("> You don't have enough money, your balance is " + formatCurrency(player.getBalance().intValue(), player.getCurrency()));
         System.out.println();
 
     }

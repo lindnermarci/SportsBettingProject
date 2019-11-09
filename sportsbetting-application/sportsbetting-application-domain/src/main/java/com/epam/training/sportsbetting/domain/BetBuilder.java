@@ -46,6 +46,7 @@ public class BetBuilder {
             return this;
         }
         Outcome outcome = outcomes.get(indexOfOutcome);
+        System.out.println(outcome.toString());
         outcomeOdd.setOutcome(outcome);
         outcome.addOutcomeOdd(outcomeOdd);
         return this;

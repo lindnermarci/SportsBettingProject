@@ -6,6 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+import javax.transaction.Transactional;
+
+import org.springframework.transaction.PlatformTransactionManager;
+
 import com.epam.training.sportsbetting.domain.Outcome;
 import com.epam.training.sportsbetting.domain.Player;
 import com.epam.training.sportsbetting.domain.SportEvent;
@@ -17,13 +27,20 @@ public class SportsBettingService implements Service {
     private Player player;
     private List<SportEvent> sportEvents;
     private List<Wager> wagers;
+    
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    private EntityManager entityManager;
+    
+    @Inject
+    PlatformTransactionManager txManger;
 
     public SportsBettingService() {
+//        txManger.getTransaction(entityManager.getTransaction());
         SportEventBuilder seb = new SportEventBuilder();
         SportEvent event = seb
                 .setTitle("Lakers vs. Celtics")
                 .setStartDate(LocalDateTime.parse("2020-02-07T12:00:00"))
-                .setResult(null)
+                //.setResult(null)
                 .setEndDate(LocalDateTime.parse("2020-02-07T13:00:00"))
                 .setPlayer1("Arsenal")
                 .setPlayer2("Chelsea")
@@ -39,6 +56,7 @@ public class SportsBettingService implements Service {
     @Override
     public void savePlayer(Player player) {
         this.player = player;
+        entityManager.persist(player);
 
     }
 
@@ -60,6 +78,7 @@ public class SportsBettingService implements Service {
         }
         wagers.add(wager);
         player.setBalance(player.getBalance().subtract(wager.getAmount()));
+        entityManager.persist(wager);
 
     }
 
@@ -69,6 +88,7 @@ public class SportsBettingService implements Service {
     }
 
     @Override
+    //@Transactional
     public void calculateResult() {
         Random r = new Random();
             for(Wager wager: wagers) {
@@ -81,6 +101,7 @@ public class SportsBettingService implements Service {
                 }
                 wager.setProcessed(true);
             }
+            entityManager.persist(sportEvents.get(0));
     }
     
     @Override
