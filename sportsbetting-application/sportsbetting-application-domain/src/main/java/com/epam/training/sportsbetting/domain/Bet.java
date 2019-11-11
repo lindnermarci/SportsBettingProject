@@ -20,8 +20,8 @@ public class Bet {
     @OneToOne(targetEntity = SportEvent.class, cascade=CascadeType.ALL)
     private SportEvent sportEvent;
     private BetType type;
-    @OneToMany(targetEntity = Outcome.class, cascade=CascadeType.ALL)
-    List<Outcome> outcomes;
+    @OneToMany(targetEntity = Outcome.class, mappedBy = "bet", cascade=CascadeType.ALL)
+    private List<Outcome> outcomes;
     
 
     public Bet() {

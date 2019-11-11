@@ -42,8 +42,8 @@ public class SportsBettingService implements Service {
                 .setStartDate(LocalDateTime.parse("2020-02-07T12:00:00"))
                 //.setResult(null)
                 .setEndDate(LocalDateTime.parse("2020-02-07T13:00:00"))
-                .setPlayer1("Arsenal")
-                .setPlayer2("Chelsea")
+                .setPlayer1("Lakers")
+                .setPlayer2("Celtics")
                 .setBets()
                 .getInstance();
         
@@ -88,7 +88,7 @@ public class SportsBettingService implements Service {
     }
 
     @Override
-    //@Transactional
+    @Transactional
     public void calculateResult() {
         Random r = new Random();
             for(Wager wager: wagers) {

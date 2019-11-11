@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 
-@Entity
 public class FootballSportEvent extends SportEvent {
 
     public FootballSportEvent(String title, LocalDateTime startDate, LocalDateTime endDate, List<Bet> bets, Result result, String player1, String player2) {
