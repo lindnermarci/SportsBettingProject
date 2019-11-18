@@ -26,7 +26,7 @@ public class Player extends User {
     private String participant2;
     
     public Player() {
-        
+        super();
     }
     
     public Player(String name, int accountNumber, BigDecimal balance, LocalDate birth, Currency currency) {
@@ -37,8 +37,7 @@ public class Player extends User {
         this.birth = birth;
         this.currency = currency;
     }
-    
-    
+
     public String getName() {
         return name;
     }

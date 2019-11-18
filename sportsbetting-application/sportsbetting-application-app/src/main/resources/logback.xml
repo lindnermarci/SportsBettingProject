@@ -11,5 +11,4 @@
 	
 	<logger name="com.epam" level="info"/>
 	<logger name="org.springframework" level="info"/>
-	
 </configuration>

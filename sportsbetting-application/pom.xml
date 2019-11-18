@@ -17,6 +17,7 @@
 	<modules>
 		<module>sportsbetting-application-domain</module>
 		<module>sportsbetting-application-app</module>
+		<module>sportsbetting-application-mvc</module>
 	</modules>
 
 	<dependencies>
@@ -35,8 +36,8 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.18</version>
 		</dependency>
-
-
 	</dependencies>
+	
+	
 
 </project>

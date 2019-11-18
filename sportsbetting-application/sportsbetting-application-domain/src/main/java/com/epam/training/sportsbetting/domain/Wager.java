@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -28,7 +29,6 @@ public class Wager {
     private Currency currency;
     
     public Wager(BigDecimal amount, OutcomeOdd odd, Player player) {
-        super();
         this.amount = amount;
         this.timestampCreated = LocalDateTime.now();
         this.processed = false;
@@ -123,6 +123,10 @@ public class Wager {
     public void increasePlayerBalanace(BigDecimal val) {
         player.increasePlayerBalanace(val);
         
+    }
+
+    public int getId() {
+        return id;
     }
     
 }

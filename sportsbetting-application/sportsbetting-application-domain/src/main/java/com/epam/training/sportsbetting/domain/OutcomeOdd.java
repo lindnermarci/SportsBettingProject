@@ -8,7 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class OutcomeOdd {
@@ -18,7 +18,7 @@ public class OutcomeOdd {
     private BigDecimal value;
     private LocalDateTime validForm;
     private LocalDateTime validUntil;
-    @OneToOne(targetEntity = Outcome.class,cascade=CascadeType.ALL)
+    @ManyToOne(targetEntity = Outcome.class, cascade=CascadeType.ALL)
     private Outcome outcome;
     
     
@@ -109,9 +109,5 @@ public class OutcomeOdd {
         return id;
     }
 
-
-    public void setId(int id) {
-        this.id = id;
-    }
     
 }

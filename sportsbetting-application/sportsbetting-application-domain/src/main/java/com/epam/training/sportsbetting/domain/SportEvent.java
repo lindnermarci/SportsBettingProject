@@ -24,7 +24,7 @@ public class SportEvent{
     private String title;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    @OneToMany(targetEntity=Bet.class, cascade=CascadeType.ALL)
+    @OneToMany(targetEntity=Bet.class, cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Bet> bets;
     @OneToOne(targetEntity = Result.class, cascade=CascadeType.ALL)
     private Result result;
