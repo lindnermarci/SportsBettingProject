@@ -28,7 +28,6 @@ public class SportsBettingService implements Service {
     private List<SportEvent> sportEvents;
     private List<Wager> wagers;
 
-    @NonNull
     @Inject
     private PlayerRepository playerRepository;
 
