@@ -8,13 +8,14 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>sportsbetting-application-mvc</artifactId>
+	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>5.2.1.RELEASE</spring.version>
 		<slf4j.version>1.7.28</slf4j.version>
 	</properties>
 	<dependencies>
-			<dependency>
+		<dependency>
 			<groupId>com.example</groupId>
 			<artifactId>sportsbetting-application-domain</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -52,6 +53,13 @@
 			<artifactId>spring-data-elasticsearch</artifactId>
 			<version>3.2.1.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 </project>
