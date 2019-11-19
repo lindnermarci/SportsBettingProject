@@ -9,7 +9,6 @@
   </parent>
   <groupId>com.example.app</groupId>
   <artifactId>sportsbetting-application-domain</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
   <name>sportsbetting-application-domain</name>
   <url>http://maven.apache.org</url>
   <properties>
