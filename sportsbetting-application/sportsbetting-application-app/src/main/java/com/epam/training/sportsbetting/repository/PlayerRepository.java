@@ -10,4 +10,6 @@ import com.epam.training.sportsbetting.domain.Player;
 public interface PlayerRepository extends CrudRepository<Player, Integer> {
     
     List<Player> findByName(String name);
+    
+    List<Player> findByEmail(String name);
 }

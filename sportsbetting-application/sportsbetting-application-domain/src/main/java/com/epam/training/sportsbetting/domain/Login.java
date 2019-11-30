@@ -6,6 +6,7 @@ public class Login {
     private String password;
     
     
+    
     public Login(String username, String password) {
         super();
         this.username = username;

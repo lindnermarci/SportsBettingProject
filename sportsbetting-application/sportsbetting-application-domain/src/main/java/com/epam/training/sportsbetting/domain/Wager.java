@@ -21,13 +21,18 @@ public class Wager {
     private LocalDateTime timestampCreated;
     private boolean processed;
     private boolean win;
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private OutcomeOdd outcomeOdd;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private Player player;
     @Enumerated(EnumType.STRING)
     private Currency currency;
     
+    
+    public Wager() {
+        super();
+    }
+
     public Wager(BigDecimal amount, OutcomeOdd odd, Player player) {
         this.amount = amount;
         this.timestampCreated = LocalDateTime.now();
@@ -36,6 +41,9 @@ public class Wager {
         this.outcomeOdd = odd;
         this.player = player;
         this.currency = player.getCurrency();
+    }
+    public int getOutcomeOddId() {
+        return outcomeOdd.getId();
     }
 
     public BigDecimal getAmount() {
@@ -127,6 +135,10 @@ public class Wager {
 
     public int getId() {
         return id;
+    }
+
+    public void setOutcomeOdd(OutcomeOdd outcomeOdd) {
+        this.outcomeOdd = outcomeOdd;
     }
     
 }

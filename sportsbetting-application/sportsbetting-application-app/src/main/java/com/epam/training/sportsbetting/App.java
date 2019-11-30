@@ -95,8 +95,6 @@ public class App {
     
     private void createPLayer() {
         Player player = view.readPlayerData();
-        player.setEmail("a@a");
-        player.setPassword("root");
         service.savePlayer(player);
     }
     

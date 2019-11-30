@@ -18,7 +18,7 @@ public class Bet {
     @GeneratedValue
     private int id;
     private String description;
-    @OneToOne(targetEntity = SportEvent.class, cascade=CascadeType.ALL)
+    @OneToOne(targetEntity = SportEvent.class, cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private SportEvent sportEvent;
     private BetType type;
     @OneToMany(targetEntity = Outcome.class, mappedBy = "bet", cascade=CascadeType.ALL)

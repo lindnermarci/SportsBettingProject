@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.epam.training.sportsbetting.domain.Login;
+import com.epam.training.sportsbetting.domain.ModifyPlayerRequest;
 import com.epam.training.sportsbetting.domain.Player;
 import com.epam.training.sportsbetting.domain.SportEvent;
 import com.epam.training.sportsbetting.domain.Wager;
@@ -17,5 +18,8 @@ public interface Service {
     void calculateResult();
     boolean sufficientBalance(BigDecimal wagerAmount);
     public Player validateUser(Login login);
+    void updatePlayer(ModifyPlayerRequest player);
+    public List<Wager> findWagersbyPlayerId(int playerId);
+    public void removeWagerbyId(int id);
     
 }

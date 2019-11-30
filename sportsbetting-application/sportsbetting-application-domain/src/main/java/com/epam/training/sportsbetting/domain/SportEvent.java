@@ -32,6 +32,11 @@ public class SportEvent{
     private String player2;
     
     
+    
+    public SportEvent() {
+        super();
+    }
+
     public SportEvent(String title, LocalDateTime startDate, LocalDateTime endDate, List<Bet> bets, Result result, String player1, String player2) {
         super();
         this.title = title;

@@ -17,6 +17,8 @@ public class Result {
     @OneToMany(targetEntity = Outcome.class)
     private List<Outcome> winnerOutcomes;
 
+    
+
     public Result(List<Outcome> winnerOutcomes) {
         super();
         this.winnerOutcomes = winnerOutcomes;

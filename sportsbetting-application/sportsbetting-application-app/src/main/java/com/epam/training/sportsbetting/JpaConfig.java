@@ -55,7 +55,7 @@ public class JpaConfig {
 
     @Bean
     public DataSource dataSource() throws ClassNotFoundException {
-    	Class.forName("com.mysql.jdbc.Driver");  //java.sql.SQLException: No suitable driver found for jdbc:mysql tomcat
+    	Class.forName("com.mysql.cj.jdbc.Driver");  //java.sql.SQLException: No suitable driver found for jdbc:mysql tomcat
         return new DriverManagerDataSource(dbUrl, username, password);
     }
 

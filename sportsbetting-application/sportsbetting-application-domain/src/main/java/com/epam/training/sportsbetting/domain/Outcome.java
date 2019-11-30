@@ -20,9 +20,13 @@ public class Outcome {
     private String description;
     @ManyToOne(cascade=CascadeType.ALL)
     private Bet bet;
-    @OneToMany(targetEntity = OutcomeOdd.class, cascade=CascadeType.ALL)
+    @OneToMany(targetEntity = OutcomeOdd.class,fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     List<OutcomeOdd> outcomeOdds;
     
+    public Outcome() {
+        super();
+    }
+
     public Outcome(String description, Bet bet, List<OutcomeOdd> outcomeOdds) {
         super();
         this.description = description;

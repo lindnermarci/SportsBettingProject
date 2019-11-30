@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -18,10 +19,15 @@ public class OutcomeOdd {
     private BigDecimal value;
     private LocalDateTime validForm;
     private LocalDateTime validUntil;
-    @ManyToOne(targetEntity = Outcome.class, cascade=CascadeType.ALL)
+    @ManyToOne(targetEntity = Outcome.class, cascade = CascadeType.ALL)
     private Outcome outcome;
     
     
+    public OutcomeOdd() {
+        super();
+    }
+
+
     public OutcomeOdd(BigDecimal value, LocalDateTime validForm, LocalDateTime validUnit, Outcome outcome) {
         super();
         this.value = value;

@@ -1,5 +1,6 @@
 package com.epam.training.sportsbetting.domain;
 
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -8,7 +9,10 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.persistence.Version;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Player extends User {
@@ -17,11 +21,15 @@ public class Player extends User {
     @GeneratedValue
     private int id;
     private String name;
-    private int accountNumber;
+    private Integer accountNumber;
     private BigDecimal balance;
+    @DateTimeFormat(pattern = "yyyy.MM.dd")
     private LocalDate birth;
     @Enumerated(EnumType.STRING)
     private Currency currency;
+    @Transient
+    private String currencyName;
+    
     private String participan1;
     private String participant2;
     
@@ -29,13 +37,14 @@ public class Player extends User {
         super();
     }
     
-    public Player(String name, int accountNumber, BigDecimal balance, LocalDate birth, Currency currency) {
+    public Player(String name, Integer accountNumber, BigDecimal balance, LocalDate birth, Currency currency) {
         super();
         this.name = name;
         this.accountNumber = accountNumber;
         this.balance = balance;
         this.birth = birth;
         this.currency = currency;
+        this.setCurrencyName(currency);
     }
 
     public String getName() {
@@ -65,8 +74,29 @@ public class Player extends User {
     public Currency getCurrency() {
         return currency;
     }
+   
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+    
+    public void setCurrency(String currency) {
+        switch (currency) {
+        case "EUR":
+            this.currency = Currency.EUR;
+            this.currencyName = "EUR";
+            break;
+        case "HUF":
+            this.currency = Currency.HUF;
+            this.currencyName = "HUF";
+            break;
+        case "USD":
+            this.currency = Currency.USD;
+            this.currencyName = "USD";
+            break;
+
+        default:
+            throw new IllegalArgumentException("Unexpected value: " + currency);
+        }
     }
 
 
@@ -102,6 +132,31 @@ public class Player extends User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setCurrencyName(Currency currency) {
+        switch (currency) {
+        case EUR:
+            this.currencyName = "EUR";
+            break;
+        case HUF:
+            this.currencyName = "HUF";
+            break;
+        case USD:
+            this.currencyName = "USD";
+            break;
+
+        default:
+            throw new IllegalArgumentException("Unexpected value: " + currency);
+        }
+    }
+
+    public String getCurrencyName() {
+        return currencyName;
+    }
+
+    public void setCurrencyName(String currencyName) {
+        this.currencyName = currencyName;
     }
     
     
