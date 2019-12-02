@@ -36,7 +36,7 @@ public class Wager {
     public Wager(BigDecimal amount, OutcomeOdd odd, Player player) {
         this.amount = amount;
         this.timestampCreated = LocalDateTime.now();
-        this.processed = false;
+        this.processed = true;
         this.win = false;
         this.outcomeOdd = odd;
         this.player = player;
@@ -78,7 +78,7 @@ public class Wager {
         this.win = win;
     }
 
-    public OutcomeOdd getOdd() {
+    public OutcomeOdd getOutcomeOdd() {
         return outcomeOdd;
     }
 
@@ -115,7 +115,7 @@ public class Wager {
         return outcomeOdd.getBetDescription();
     }
 
-    public BigDecimal getOutcomeOdd() {
+    public BigDecimal getDecimalOutcomeOdd() {
         return outcomeOdd.getValue();
     }
 

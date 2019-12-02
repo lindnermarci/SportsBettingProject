@@ -5,12 +5,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.epam.training.sportsbetting.domain.Bet;
-import com.epam.training.sportsbetting.domain.BetType;
-import com.epam.training.sportsbetting.domain.Outcome;
-import com.epam.training.sportsbetting.domain.Result;
-import com.epam.training.sportsbetting.domain.SportEvent;
-
 public class SportEventBuilder {
     private static String title;
     private LocalDateTime startDate;
@@ -42,10 +36,7 @@ public class SportEventBuilder {
                 .addOutcome(new Outcome("112", betBuilder.getInstance()))
                 .setOutcomeOdd(outcomeOddBuilder.getInstance(),0)
                 .getInstance();
-        bets.add(bet);
-        final Outcome outcome = new Outcome("28", bets.get(0));
-        //bets.get(0).outcomes.add(outcome);
-        
+        bets.add(bet);        
         
         betBuilder = new BetBuilder();
         bet = betBuilder.setDescription("number of scored goals")
@@ -55,7 +46,6 @@ public class SportEventBuilder {
                 .setOutcomeOdd(outcomeOddBuilder.setValue(BigDecimal.valueOf(3)).getInstance(),0)
                 .getInstance();
         bets.add(bet);
-        //bets.get(1).outcomes.add(new Outcome("28", bets.get(1)));
         
         betBuilder = new BetBuilder();
         bet = betBuilder.setDescription("winner")
@@ -65,7 +55,6 @@ public class SportEventBuilder {
                 .setOutcomeOdd(outcomeOddBuilder.setValue(BigDecimal.valueOf(2)).getInstance(),0)
                 .getInstance();
         bets.add(bet);
-        //bets.get(2).outcomes.add(new Outcome("Lakers", bets.get(2)));
         
         betBuilder = new BetBuilder();
         bet = betBuilder.setDescription("winner")
@@ -75,7 +64,6 @@ public class SportEventBuilder {
                 .setOutcomeOdd(outcomeOddBuilder.setValue(BigDecimal.valueOf(3)).getInstance(),0)
                 .getInstance();
         bets.add(bet);
-        //bets.get(3).outcomes.add(new Outcome("Celtics", bets.get(3)));
         return this;
     }
     

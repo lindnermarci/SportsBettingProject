@@ -10,7 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-import javax.persistence.Version;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

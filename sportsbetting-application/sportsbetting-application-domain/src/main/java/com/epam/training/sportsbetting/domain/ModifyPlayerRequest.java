@@ -5,14 +5,23 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.sun.istack.NotNull;
+
 public class ModifyPlayerRequest{
+    @NotNull
     private int id;
+    @NotNull
     private String email;
+    @NotNull
     private String name;
+    @NotNull
     private Integer accountNumber;
+    @NotNull
     private BigDecimal balance;
+    @NotNull
     @DateTimeFormat(pattern = "yyyy.MM.dd")
     private LocalDate birth;
+    @NotNull
     private Currency currency;
     
     public int getId() {

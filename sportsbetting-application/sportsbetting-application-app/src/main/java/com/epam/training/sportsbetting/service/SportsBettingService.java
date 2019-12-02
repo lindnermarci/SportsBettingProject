@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.lang.NonNull;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,14 +26,12 @@ import com.epam.training.sportsbetting.repository.OutcomeOddRepository;
 import com.epam.training.sportsbetting.repository.PlayerRepository;
 import com.epam.training.sportsbetting.repository.SportEventRepository;
 import com.epam.training.sportsbetting.repository.WagerRepository;
-import com.epam.training.sportsbetting.view.SportsBettingView;
 
 public class SportsBettingService implements Service {
 
     private Player player;
     private List<SportEvent> sportEvents;
     private List<Wager> wagers;
-    int counter;
 
     private static final Logger LOG = LoggerFactory.getLogger(SportsBettingService.class);
 
@@ -46,7 +43,7 @@ public class SportsBettingService implements Service {
 
     @Inject
     private SportEventRepository sportEventRepository;
-    
+
     @Inject
     private OutcomeOddRepository outcomeOddRepository;
 
@@ -100,15 +97,13 @@ public class SportsBettingService implements Service {
         wagers.add(wager);
         player.setBalance(player.getBalance().subtract(wager.getAmount()));
         System.out.println("OutcomeOdd id of wager:" + wager.getOutcomeOddId());
-        
+
         final Optional<Player> findById = playerRepository.findById(wager.getPlayer().getId());
-        wager.setPlayer(findById.get());
-        if(counter > 0) {
-            Optional<OutcomeOdd> outcomeOdd = outcomeOddRepository.findById(wager.getOutcomeOddId());
+        if (findById.isPresent())
+            wager.setPlayer(findById.get());
+        Optional<OutcomeOdd> outcomeOdd = outcomeOddRepository.findById(wager.getOutcomeOddId());
+        if (outcomeOdd.isPresent())
             wager.setOutcomeOdd(outcomeOdd.get());
-        }
-        counter++;
-        
         wagerRepository.save(wager);
 
     }
@@ -117,22 +112,33 @@ public class SportsBettingService implements Service {
     public List<Wager> findAllWagers() {
         return (List<Wager>) wagerRepository.findAll();
     }
-    
+
     @Override
     public List<Wager> findWagersbyPlayerId(int playerId) {
         List<Wager> wagers = new ArrayList<>();
-        for(Wager wager: wagerRepository.findAll()) {
-           if(wager.getPlayer().getId() == playerId) wagers.add(wager);
-       }
+        for (Wager wager : wagerRepository.findAll()) {
+            if (wager.getPlayer().getId() == playerId)
+                wagers.add(wager);
+        }
         return wagers;
     }
-    
+
     @Override
+    @Transactional
     public void removeWagerbyId(int id) {
-       wagerRepository.deleteById(id);
+        Optional<Wager> wager = wagerRepository.findById(id);
+        boolean deleteable = false;
+        if (wager.isPresent()) {
+            wager.get().setPlayer(null);
+            wager.get().setOutcomeOdd(null);
+            for (SportEvent event : sportEventRepository.findAll()) {
+                if (event.getStartDate().compareTo(LocalDateTime.now()) > 0)
+                    deleteable = true;
+            }
+        }
+        if (deleteable)
+            wagerRepository.deleteById(id);
     }
-    
-    
 
     @Override
     @Transactional
@@ -144,7 +150,7 @@ public class SportsBettingService implements Service {
                 SportEvent sportEvent = wager.getSportEvent();
                 sportEvent.addWinnerOutcome(outcome);
                 wager.setWin(true);
-                wager.increasePlayerBalanace(wager.getAmount().multiply(wager.getOutcomeOdd()));
+                wager.increasePlayerBalanace(wager.getAmount().multiply(wager.getDecimalOutcomeOdd()));
             }
             wager.setProcessed(true);
         }
@@ -159,18 +165,21 @@ public class SportsBettingService implements Service {
         return true;
     }
 
+    @Override
     public Player validateUser(Login login) {
         for (Player player : playerRepository.findAll()) {
-
-            if (login.getPassword().contentEquals(player.getPassword()) && login.getUsername().contentEquals(player.getEmail())) {
+            if (login != null && login.getPassword().contentEquals(player.getPassword()) && login.getUsername().contentEquals(player.getEmail())) {
                 LOG.info("Player validated: " + player.getName());
                 this.player = player;
+                player.setCurrencyName(player.getCurrency());
                 return player;
             }
         }
         return null;
     }
+
     @Override
+    @Transactional
     public void updatePlayer(ModifyPlayerRequest player) {
         this.player.setName(player.getName());
         this.player.setAccountNumber(player.getAccountNumber());

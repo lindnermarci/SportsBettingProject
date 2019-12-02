@@ -9,10 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 //@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
@@ -22,7 +22,9 @@ public class SportEvent{
     @GeneratedValue
     private int id;
     private String title;
+    @DateTimeFormat(pattern = "yyyy.MM.dd HH:MM")
     private LocalDateTime startDate;
+    @DateTimeFormat(pattern = "yyyy.MM.dd HH:MM")
     private LocalDateTime endDate;
     @OneToMany(targetEntity=Bet.class, cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Bet> bets;

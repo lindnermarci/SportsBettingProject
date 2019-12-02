@@ -181,7 +181,7 @@ public class SportsBettingView implements View {
                 .append("\' of ")
                 .append(wager.getSportEventTitle())
                 .append(" [odd: ")
-                .append(wager.getOdd().getValue())
+                .append(wager.getOutcomeOdd().getValue())
                 .append(", amount: ")
                 .append(wager.getAmount().intValue())
                 .append("] saved!");
@@ -207,7 +207,7 @@ public class SportsBettingView implements View {
                     .append("\' of ")
                     .append(wager.getSportEventTitle())
                     .append(" [odd: ")
-                    .append(wager.getOdd().getValue())
+                    .append(wager.getOutcomeOdd().getValue())
                     .append(", amount: ")
                     .append(wager.getAmount().intValue())
                     .append("], win: ")

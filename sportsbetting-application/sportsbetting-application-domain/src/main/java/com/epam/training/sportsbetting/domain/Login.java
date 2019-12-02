@@ -1,8 +1,12 @@
 package com.epam.training.sportsbetting.domain;
 
-public class Login {
+import com.sun.istack.NotNull;
 
+public class Login {
+    
+    @NotNull
     private String username;
+    @NotNull
     private String password;
     
     
