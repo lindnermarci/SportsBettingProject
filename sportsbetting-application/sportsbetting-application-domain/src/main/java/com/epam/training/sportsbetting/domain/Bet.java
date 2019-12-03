@@ -75,7 +75,6 @@ public class Bet {
     
     public void setOutcomeOdd(OutcomeOdd outcomeOdd, int indexOfOutcome) {
         if(outcomes.size() < indexOfOutcome + 1) {
-           System.out.println("Error in Bet.java line 57");
             return;
         }
         outcomes.get(indexOfOutcome).addOutcomeOdd(outcomeOdd);

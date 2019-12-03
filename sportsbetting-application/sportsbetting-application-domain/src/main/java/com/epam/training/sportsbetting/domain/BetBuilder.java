@@ -3,12 +3,12 @@ package com.epam.training.sportsbetting.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.epam.training.sportsbetting.domain.BetType;
-import com.epam.training.sportsbetting.domain.Outcome;
-import com.epam.training.sportsbetting.domain.OutcomeOdd;
-import com.epam.training.sportsbetting.domain.SportEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BetBuilder {
+    private static final Logger LOG = LoggerFactory.getLogger(BetBuilder.class);
+
     private String description;
     private SportEvent sportEvent;
     private BetType type;
@@ -42,11 +42,10 @@ public class BetBuilder {
     
     public BetBuilder setOutcomeOdd(OutcomeOdd outcomeOdd, int indexOfOutcome) {
         if(outcomes.size() < indexOfOutcome + 1) {
-           System.out.println("Error in BetBuilder, Array out of bounds");
+           LOG.error("Error, index out of bounds");
             return this;
         }
         Outcome outcome = outcomes.get(indexOfOutcome);
-        System.out.println(outcome.toString());
         outcomeOdd.setOutcome(outcome);
         outcome.addOutcomeOdd(outcomeOdd);
         return this;

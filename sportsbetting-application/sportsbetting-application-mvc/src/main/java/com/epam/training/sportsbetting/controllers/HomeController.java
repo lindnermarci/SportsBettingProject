@@ -47,7 +47,6 @@ public class HomeController {
             model.addAttribute("player", player);
             model.addAttribute("event", event);
             model.addAttribute("wagers", wagers);
-            System.out.println(wagers.size());
             return "home";
         } else {
             model.addAttribute("messsage", "Invalid username or password");
